@@ -10,6 +10,7 @@ class Matriz
 		/*DEFINICION DE LAS VARIABLESDE LA MATRIZ*/
     public:
     	M **mat;
+    	//mat[filas][columnas];
 		int fila;
 		int columna;
     	M minimo;
@@ -26,19 +27,19 @@ class Matriz
 		void sumar_matriz();
 		void imprimir_matriz();
         /*SOBRECARGA DE OPERADORES*/
-        Matriz<M> operator+(const Matriz<M> &mat2)  ;
-		Matriz<M> operator-(const Matriz<M> mat2);
-		Matriz<M> operator/(const Matriz<M> mat2);
+        void operator=(const Matriz<M> &mat2);
+        Matriz<M> operator+(const Matriz<M> &mat2);
+		Matriz<M> operator-(const Matriz<M> &mat2);
+		Matriz<M> operator/(const Matriz<M> &mat2);
 		Matriz<M> operator*(const Matriz<M> mat2);
 		//Matriz<M>* & Matriz<M>::operator [](const int &index) const  // overloading operator []
-		//void operator=(const Matriz<M> &mat2);
 		ostream &operator<<( ostream &output);        
 		istream &operator>>( istream  &input);  	
 		Matriz<M> operator>(const Matriz<M> mat2);
 		Matriz<M> operator<(const Matriz<M> mat2);
 		Matriz<M> operator<=(const Matriz<M> mat2);
 		Matriz<M> operator>=(const Matriz<M> mat2);		
-		Matriz<M> operator- ();
+		//Matriz<M> operator- ();
 		Matriz<M> operator! ();
 		Matriz<M> operator++ ();
 		Matriz<M> operator-- ();
@@ -47,10 +48,10 @@ class Matriz
 template <typename M>
 Matriz<M>::Matriz(int f, int c, M min)
 	{
-		mat=new M*[fila];
 		fila=f;
 		columna=c;
 		minimo=min;
+		mat=new M*[fila];
 		crear_matriz();
 		llenar_matriz_defecto(min);
 		suma=min;
@@ -122,11 +123,7 @@ void Matriz<M>::imprimir_matriz()
 		    cout<<"\n";
 		}
 	}
-/*template <typename M>
-Matriz<M>* & Matriz<M>::operator [](const int &index) const  // overloading operator []
-{
-  return  mat [index];
-}*/	
+
 template <typename M>
 Matriz<M> Matriz<M>::operator+( const Matriz<M> &mat2) 
 	{
@@ -136,27 +133,27 @@ Matriz<M> Matriz<M>::operator+( const Matriz<M> &mat2)
 			for (int j = 0; j < columna; j ++)
 			{
 				*(*(mat0.mat+i)+j)=(*(*(this->mat+i)+j) + *(*(mat2.mat+i)+j));
-				cout<<mat0.mat[i][j]<<"\n";
+				//cout<<mat0.mat[i][j]<<"\n";
 			}
 		}
 		return mat0;
 	}
-
 template <typename M>
-Matriz<M> Matriz<M>::operator-(const Matriz<M> mat2)
+Matriz<M> Matriz<M>::operator-( const Matriz<M> &mat2) 
 	{
-		Matriz mat0(fila,columna,minimo);
-		for (int  i = 0; i < fila; i += 1)
+		Matriz<M> mat0(fila,columna,minimo);
+		for (int  i = 0; i < fila; i ++)
 		{
-			for (int j = 0; j < columna; j += 1)
+			for (int j = 0; j < columna; j ++)
 			{
-				mat0.mat[i][j]=(this->mat[i][j]-mat2.mat[i][j]);
+				*(*(mat0.mat+i)+j)=(*(*(this->mat+i)+j) - *(*(mat2.mat+i)+j));
+				//cout<<mat0.mat[i][j]<<"\n";
 			}
 		}
 		return mat0;
 	}
 template <typename M>
-Matriz<M> Matriz<M>::operator/(const Matriz<M> mat2)
+Matriz<M> Matriz<M>::operator/(const Matriz<M> &mat2)
 	{
 		Matriz mat0(fila,columna,minimo);
 		for (int  i = 0; i < fila; i += 1)
@@ -168,6 +165,7 @@ Matriz<M> Matriz<M>::operator/(const Matriz<M> mat2)
 		}
 		return mat0;
 	}
+	
 template <typename M>
 Matriz<M> Matriz<M>::operator*(const Matriz<M> mat2)
 	{
@@ -186,8 +184,8 @@ Matriz<M> Matriz<M>::operator*(const Matriz<M> mat2)
 		}
 		return mat0;
 	}
-/*
-template<typename M>																																																																																																																																																																				
+	
+template<typename M>																																																																																																																																																															
 void Matriz<M>::operator=(const Matriz<M> &mat2)
 	{
 		for (int  i = 0; i < fila; i += 1)
@@ -198,7 +196,6 @@ void Matriz<M>::operator=(const Matriz<M> &mat2)
 			}
 		}
 	}
-	*/	
 template <typename M>
 ostream& Matriz<M>::operator<<( ostream &output) { 
          
@@ -238,8 +235,8 @@ Matriz<M> Matriz<M>::operator>=(const Matriz<M> mat2)
 			return true;}else{
 			return false;}
 	}				
-template <typename M>
-/*Matriz<M> Matriz<M>::operator- ()
+/*template <typename M>
+Matriz<M> Matriz<M>::operator- ()
 	{
 		Matriz mat0(fila,columna,minimo);
 		for (int  i = 0; i < fila; i += 1)
@@ -252,7 +249,7 @@ template <typename M>
 		return mat0;
 	}*/
 template <typename M>
-Matriz<M> Matriz<M>::operator! ()
+Matriz<M> Matriz<M>::operator!()
 	{
 		Matriz mat0(fila,columna,minimo);
 		for (int  i = 0; i < fila; i += 1)
