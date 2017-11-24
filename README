@@ -1,0 +1,2 @@
+En el presente codig , encontrremos funciones overfloat , conninadas con templates; en donde se pueden realizar operaciones como si fueran enteros o flotantes, ya que overfloat nos permite crear estas estrcuturas. Asi mismo con templates podemos ahorrar un monton de codigo, ya que podemos manipular varias variables.
+El codigo tiene una clase que esta en  matriz,h, solo en el punto h se encuentra casi todo , ya que en el linkeo , cunaod se separa en .cpp y .h ;el compiladoor no reconoce los templates.
